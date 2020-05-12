@@ -1,1 +1,3 @@
-laravel実践用
+laravel実践編
+
+`composer require --dev barryvdh/laravel-ide-helper`
