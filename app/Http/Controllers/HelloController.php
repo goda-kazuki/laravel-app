@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class HelloController extends Controller
 {
-    public function index(Person $person){
+    public function index($person){
         $data=["msg"=>$person];
 
         return view("hello.index",$data);
