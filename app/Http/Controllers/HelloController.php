@@ -9,12 +9,11 @@ class HelloController extends Controller
 {
     function __construct()
     {
-        config(["sample.message"=>"新しいメッセージ"]);
     }
 
-    public function index($person){
-        $data=["msg"=>config("sample.message"),
-            "data"=>config("sample.data")];
+    public function index(Request $request){
+        $data=["msg"=>env("SAMPLE_MESSAGE"),
+            "data"=>explode(",",env("SAMPLE_DATA"))];
 
         return view("hello.index",$data);
     }
