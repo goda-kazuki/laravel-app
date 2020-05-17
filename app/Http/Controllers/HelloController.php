@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class HelloController extends Controller
 {
+    function __construct()
+    {
+        config(["sample.message"=>"新しいメッセージ"]);
+    }
+
     public function index($person){
         $data=["msg"=>config("sample.message"),
             "data"=>config("sample.data")];
@@ -15,8 +20,7 @@ class HelloController extends Controller
     }
 
     public function other(Request $request){
-        $data=["msg"=>$request->get("bye")];
-        return view("hello.index",$data);
+        return redirect()->route("sample");
     }
 
 }

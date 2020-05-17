@@ -19,13 +19,12 @@ Route::get('/', function () {
 });
 
 Route::middleware([HelloMiddleware::class])->group(function (){
-
 Route::get("/hello","HelloController@index")->name("hello");
 Route::get("/hello/other","HelloController@other");
 });
 
-Route::namespace("Goda\Sample")->group(function (){
-    Route::get("/sample","SampleController@index");
+Route::namespace("Sample")->group(function (){
+    Route::get("/sample","SampleController@index")->name("sample");
     Route::get("/sample/other","SampleController@other");
 });
 

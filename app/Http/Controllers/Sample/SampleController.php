@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Goda\Sample;
+namespace App\Http\Controllers\Sample;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class SampleController extends Controller
 {
     public function index(Request $request){
-        $data=["msg"=>"はろーさんぷるいんでっくす"];
+        $data=["msg"=>config("sample.message"),
+            "data"=>config("sample.data")];
 
         return view("hello.index",$data);
     }
