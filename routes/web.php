@@ -24,7 +24,9 @@ Route::get("/hello","HelloController@index")->name("hello");
 Route::get("/hello/other","HelloController@other");
 });
 
-Route::namespace("Sample")->group(function (){
+Route::namespace("Goda\Sample")->group(function (){
     Route::get("/sample","SampleController@index");
     Route::get("/sample/other","SampleController@other");
 });
+
+Route::get("/hello/{person}","HelloController@index");

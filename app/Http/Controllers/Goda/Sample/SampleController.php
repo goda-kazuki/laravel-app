@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Sample;
+namespace App\Http\Controllers\Goda\Sample;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
