@@ -16,15 +16,22 @@ class HelloController extends Controller
     }
 
     public function index(Request $request){
-        $data=["msg"=>$this->fname,
-            "data"=>explode(PHP_EOL,Storage::get($this->fname))];
+        if(Storage::disk("public")->exists("bk_".$this->fname)){
+            Storage::disk("public")->delete("bk_".$this->fname);
+        }
+        Storage::disk("public")->copy($this->fname,"bk_".$this->fname);
+        Storage::disk("local")->delete("bk_".$this->fname);
+        Storage::disk("local")
+            ->copy("/public/bk_".$this->fname,"bk_".$this->fname);
+
+        $data=["msg"=>Storage::disk("public")->url($this->fname),
+            "data"=>explode(PHP_EOL,Storage::disk("public")->url($this->fname))];
 
         return view("hello.index",$data);
     }
 
     public function other($msg){
-        Storage::put($this->fname, Storage::get($this->fname).PHP_EOL.$msg);
-
+        Storage::prepend($this->fname,$msg);
         return redirect()->route("hello");
     }
 }
