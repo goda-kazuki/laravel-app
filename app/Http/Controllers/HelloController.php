@@ -30,8 +30,9 @@ class HelloController extends Controller
         return view("hello.index",$data);
     }
 
-    public function other($msg){
-        Storage::prepend($this->fname,$msg);
+    public function other(Request $request){
+        Storage::disk("local")
+            ->putFile("files",$request->file("file"));
         return redirect()->route("hello");
     }
 }
