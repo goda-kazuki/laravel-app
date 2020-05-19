@@ -6,19 +6,19 @@
     @csrf
     <div>
         名前
-        <input type="text" name="name">
+        <input type="text" name="name" value="{{old("name")}}">
     </div>
     <div>
         メッセージ
-        <input type="text" name="msg">
+        <input type="text" name="msg" value="{{old("msg")}}">
     </div>
     <div>
         電話番号
-        <input type="text" name="tel">
+        <input type="text" name="tel" value="{{old("tel")}}">
     </div>
     <div>
         メール
-        <input type="text" name="mail">
+        <input type="text" name="mail" value="{{old("mail")}}">
     </div>
     <input type="submit">
 </form>

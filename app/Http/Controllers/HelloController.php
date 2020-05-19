@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Person;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 
 class HelloController extends Controller
@@ -15,12 +16,13 @@ class HelloController extends Controller
         $this->fname="sample.txt";
     }
 
-    public function index(Request $request){
+    public function index(Request $request,Response $response){
         $keys=[];
         $values=[];
         $msg="テキストを入力してください";
 
         if($request->isMethod("post")){
+            $request->flash();
             $form=$request->all();
             $keys=array_keys($form);
             $values=array_values($form);
