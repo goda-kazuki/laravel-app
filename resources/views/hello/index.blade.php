@@ -1,18 +1,31 @@
 <body>
 <h1>Hello/Index</h1>
 <p>{{$msg}}</p>
-@isset($data)
-<ul>
-    @foreach($data as $item)
-        <li>{{$item}}</li>
-    @endforeach
-</ul>
-@endisset
 
-<form action="/hello/other" method="post" enctype="multipart/form-data">
+<form action="/hello" method="post">
     @csrf
-    <input type="file" name="file">
+    <div>
+        名前
+        <input type="text" name="name">
+    </div>
+    <div>
+        メッセージ
+        <input type="text" name="msg">
+    </div>
+    <div>
+        電話番号
+        <input type="text" name="tel">
+    </div>
+    <div>
+        メール
+        <input type="text" name="mail">
+    </div>
     <input type="submit">
-
 </form>
+<ul>
+    @for($i=0;$i<count($keys);$i++)
+        <li>{{$keys[$i]}}:{{$values[$i]}}</li>
+    @endfor
+
+</ul>
 </body>

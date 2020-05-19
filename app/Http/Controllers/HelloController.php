@@ -16,16 +16,17 @@ class HelloController extends Controller
     }
 
     public function index(Request $request){
-        if(Storage::disk("public")->exists("bk_".$this->fname)){
-            Storage::disk("public")->delete("bk_".$this->fname);
-        }
-        Storage::disk("public")->copy($this->fname,"bk_".$this->fname);
-        Storage::disk("local")->delete("bk_".$this->fname);
-        Storage::disk("local")
-            ->copy("/public/bk_".$this->fname,"bk_".$this->fname);
+        $keys=[];
+        $values=[];
+        $msg="テキストを入力してください";
 
-        $data=["msg"=>Storage::disk("public")->url($this->fname),
-            "data"=>explode(PHP_EOL,Storage::disk("public")->url($this->fname))];
+        if($request->isMethod("post")){
+            $form=$request->all();
+            $keys=array_keys($form);
+            $values=array_values($form);
+        }
+
+        $data=["msg"=>$msg,"keys"=>$keys,"values"=>$values];
 
         return view("hello.index",$data);
     }
