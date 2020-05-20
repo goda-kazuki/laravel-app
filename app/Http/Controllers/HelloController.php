@@ -21,21 +21,26 @@ class HelloController extends Controller
         $values=[];
         $msg="テキストを入力してください";
 
-        if($request->isMethod("post")){
-            $request->flash();
-            $form=$request->all();
-            $keys=array_keys($form);
-            $values=array_values($form);
-        }
+        $name=$request->query->get("name");
+        $mail=$request->query->get("mail");
+        $tel=$request->query->get("tel");
+        $msg=$request->query->get("msg");
+
+        $keys=["名前","メール","電話"];
+        $values=[$name,$mail,$tel];
 
         $data=["msg"=>$msg,"keys"=>$keys,"values"=>$values];
+        $request->flash();
 
         return view("hello.index",$data);
     }
 
     public function other(Request $request){
-        Storage::disk("local")
-            ->putFile("files",$request->file("file"));
-        return redirect()->route("hello");
+        $data=["name"=>"たろう","mail"=>"taro@yamada","tel"=>"090-123-123"];
+
+        $query_str=http_build_query($data);
+        $data["msg"]=$query_str;
+
+        return redirect()->route("hello",$data);
     }
 }

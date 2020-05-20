@@ -2,15 +2,11 @@
 <h1>Hello/Index</h1>
 <p>{{$msg}}</p>
 
-<form action="/hello" method="post">
+<form action="/hello" method="get">
     @csrf
     <div>
         名前
         <input type="text" name="name" value="{{old("name")}}">
-    </div>
-    <div>
-        メッセージ
-        <input type="text" name="msg" value="{{old("msg")}}">
     </div>
     <div>
         電話番号
