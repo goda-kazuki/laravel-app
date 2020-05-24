@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MyService;
 use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,34 +14,28 @@ class HelloController extends Controller
 
     function __construct()
     {
-        $this->fname="sample.txt";
+        $this->fname = "sample.txt";
     }
 
-    public function index(Request $request,Response $response){
-        $keys=[];
-        $values=[];
-        $msg="テキストを入力してください";
+    public function index(Request $request, Response $response, $id = -1)
+    {
+        $myClass = \App::makeWith(MyService::class, ["id" => $id]);
 
-        $name=$request->query->get("name");
-        $mail=$request->query->get("mail");
-        $tel=$request->query->get("tel");
-        $msg=$request->query->get("msg");
+        $data = [
+            "msg" => $myClass->say(),
+            "data" => $myClass->allData()
+        ];
 
-        $keys=["名前","メール","電話"];
-        $values=[$name,$mail,$tel];
-
-        $data=["msg"=>$msg,"keys"=>$keys,"values"=>$values];
-        $request->flash();
-
-        return view("hello.index",$data);
+        return view("hello.index", $data);
     }
 
-    public function other(Request $request){
-        $data=["name"=>"たろう","mail"=>"taro@yamada","tel"=>"090-123-123"];
+    public function other(Request $request)
+    {
+        $data = ["name" => "たろう", "mail" => "taro@yamada", "tel" => "090-123-123"];
 
-        $query_str=http_build_query($data);
-        $data["msg"]=$query_str;
+        $query_str = http_build_query($data);
+        $data["msg"] = $query_str;
 
-        return redirect()->route("hello",$data);
+        return redirect()->route("hello", $data);
     }
 }
