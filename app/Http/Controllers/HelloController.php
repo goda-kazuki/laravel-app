@@ -10,20 +10,18 @@ use Illuminate\Support\Facades\Storage;
 
 class HelloController extends Controller
 {
-    private $fname;
-
-    function __construct()
+    function __construct(MyService $myService)
     {
-        $this->fname = "sample.txt";
+        $myService = app(MyService::class);
     }
 
-    public function index(Request $request, Response $response, $id = -1)
+    public function index(Request $request, MyService $myService, int $id = -1)
     {
-        $myClass = \App::makeWith(MyService::class, ["id" => $id]);
+        $myService->setId($id);
 
         $data = [
-            "msg" => $myClass->say(),
-            "data" => $myClass->allData()
+            "msg" => $myService->say(),
+            "data" => $myService->allData()
         ];
 
         return view("hello.index", $data);

@@ -9,12 +9,22 @@ class MyService
     private $id;
     private $msg = "no id";
     private $data = ["おはよう", "こんちは", "こんばんわ"];
+    private $serial;
 
-    public function __construct(int $id = -1)
+    private static $myService;
+
+    public function __construct()
     {
-        if ($id >= 0) {
-            $this->id = $id;
-            $this->msg = "select:" . $this->data[$id];
+        $this->serial = rand();
+        echo "[" . $this->serial . "]";
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        if ($id >= 0 && $id < count($this->data)) {
+            $this->msg = "select id:" . $this->id . "data:" . $this->data[$id];
         }
     }
 
@@ -23,7 +33,7 @@ class MyService
         return $this->msg;
     }
 
-    public function data($id)
+    public function data(int $id)
     {
         return $this->data[$id];
     }

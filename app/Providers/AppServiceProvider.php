@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\MyService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,7 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-        config(["sample.message"=>"サービスプロバイダー"]);
+        app()->singleton(MyService::class, function ($app) {
+            $myService = new MyService();
+            $myService->setId(0);
+            return $myService;
+        });
     }
 }
