@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (\App::environment('production')) {
+            \URL::forceScheme('https');
+        }
+
         app()->singleton(MyService::class, function ($app) {
             $myService = new MyService();
             $myService->setId(0);
